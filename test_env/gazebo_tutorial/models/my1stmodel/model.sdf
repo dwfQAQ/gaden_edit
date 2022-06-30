@@ -1,0 +1,155 @@
+<sdf version='1.5'>
+    <!-- Draw Circle -->
+    <model name='my1stmodel'>
+      <static>true</static>
+      <link name='symbol'>
+
+        <collision name='wall'>
+          <pose>0 0 -0.1 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>model://my1stmodel/meshes/10x6_walls.stl</uri>
+              <!-- <scale>0.01 0.01 0.01</scale> -->
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <bounce/>
+            <friction>
+              <ode/>
+            </friction>
+            <contact>
+              <ode/>
+            </contact>
+          </surface>
+        </collision>
+
+        <visual name='wall'>
+          <pose>0 0 -0.1 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>model://my1stmodel/meshes/10x6_walls.stl</uri>
+              <!-- <scale>0.01 0.01 0.01</scale> -->
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/White</name>
+            </script>
+          </material>
+        </visual>
+
+        <collision name='obstacle'>
+          <pose>0 0 -0.1 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>model://my1stmodel/meshes/10x6_central_obstacle.stl</uri>
+              <!-- <scale>0.01 0.01 0.01</scale> -->
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <bounce/>
+            <friction>
+              <ode/>
+            </friction>
+            <contact>
+              <ode/>
+            </contact>
+          </surface>
+        </collision>
+
+        <visual name='obstacle'>
+          <pose>0 0 -0.1 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>model://my1stmodel/meshes/10x6_central_obstacle.stl</uri>
+              <!-- <scale>0.01 0.01 0.01</scale> -->
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/White</name>
+            </script>
+          </material>
+        </visual>
+
+        <collision name='door_1'>
+          <pose>0 0 -0.1 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>model://my1stmodel/meshes/10x6_door_left.stl</uri>
+              <!-- <scale>0.01 0.01 0.01</scale> -->
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <bounce/>
+            <friction>
+              <ode/>
+            </friction>
+            <contact>
+              <ode/>
+            </contact>
+          </surface>
+        </collision>
+
+        <visual name='door_1'>
+          <pose>0 0 -0.1 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>model://my1stmodel/meshes/10x6_door_left.stl</uri>
+              <!-- <scale>0.01 0.01 0.01</scale> -->
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+
+        <collision name='door_2'>
+          <pose>0 0 -0.1 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>model://my1stmodel/meshes/10x6_door_right.stl</uri>
+              <!-- <scale>0.01 0.01 0.01</scale> -->
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <bounce/>
+            <friction>
+              <ode/>
+            </friction>
+            <contact>
+              <ode/>
+            </contact>
+          </surface>
+        </collision>
+
+        <visual name='door_2'>
+          <pose>0 0 -0.1 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>model://my1stmodel/meshes/10x6_door_right.stl</uri>
+              <!-- <scale>0.01 0.01 0.01</scale> -->
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Red</name>
+            </script>
+          </material>
+        </visual>
+
+        
+
+    </link>
+  </model>
+</sdf>
