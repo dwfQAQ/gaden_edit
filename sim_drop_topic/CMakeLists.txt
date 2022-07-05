@@ -11,6 +11,8 @@ find_package(catkin REQUIRED COMPONENTS
   message_generation
   roscpp
   std_msgs
+  sensor_msgs
+  nav_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -104,7 +106,7 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES sim_drop_topic
- CATKIN_DEPENDS message_generation roscpp std_msgs
+ CATKIN_DEPENDS message_generation roscpp std_msgs nav_msgs sensor_msgs message_runtime
 #  DEPENDS system_lib
 )
 
