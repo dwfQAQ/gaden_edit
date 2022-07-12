@@ -6,12 +6,12 @@ T_K = 298;
 P_atm_kpa = 101.325;
 
 %% liquid variables
-vol_conc = 0.75;            % liquid volume concentration (100%)
+vol_conc = 0.20;            % liquid volume concentration (100%)
 density_C2H6O = 0.7893;     % ethanol density (g/ml)
 density_H2O = 1.0;          % water density (g/ml)
 mol_mass_C2H6O = 46.8;      % (g/mol)
 mol_mass_H2O = 18;          % (g/mol)
-vol_mixture = 0.2;          % volume of liquid mixture (ml)
+vol_mixture = 0.2;          % volume of liquid mixture (ml) 
 
 %% mole fraction in the liquid mixture
 % moles = (density * volume * vol_concentration) / molar_mass
@@ -20,7 +20,7 @@ moles_C2H6O = (density_C2H6O * vol_mixture * vol_conc) / mol_mass_C2H6O;
 % mole fraction
 X_H2O = moles_H2O / (moles_H2O + moles_C2H6O);
 X_C2H6O = moles_C2H6O / (moles_H2O + moles_C2H6O);
-x_c = [X_C2H6O X_H2O];
+x_c = [X_C2H6O X_H2O]
 
 %% vapor pressure
 vapor_pressure_H2O = 0.61121 * exp((18.678 - T_C/234.5) * (T_C / (T_C + 257.14)));  % water: Buck equation (kPa)
@@ -194,9 +194,33 @@ X_s_H2O = gamma_H2O * X_H2O ;
 X_s_C2H6O = gamma_C2H6O * X_C2H6O;
 
 %% vapor pressure with activity coefficient
-vapor_pressure_mixture_ac = vapor_pressure_C2H6O * X_s_C2H6O + vapor_pressure_H2O * X_s_H2O;
+vapor_pressure_mixture_ethanol = vapor_pressure_C2H6O * X_s_C2H6O;
+vapor_pressure_mixture_water = vapor_pressure_H2O * X_s_H2O;
+vapor_pressure_mixture_ac = vapor_pressure_mixture_ethanol + vapor_pressure_mixture_water;    %kPa
+%% Gas law PV = nRT
+V_drop = (1^2 * pi * 1) * 10^(-6); % ml -> m3
+R = 8.314;   % J/(K*mol)
+n_water = vapor_pressure_mixture_water * 10^3 * V_drop/(R * T_K)
+n_ethanol = vapor_pressure_mixture_ethanol * 10^3 * V_drop/(R * T_K)  % mol
+
+moles_H2O = moles_H2O - n_water;
+moles_C2H6O = moles_C2H6O - n_ethanol;
+% mole fraction
+X_H2O = moles_H2O / (moles_H2O + moles_C2H6O);
+X_C2H6O = moles_C2H6O / (moles_H2O + moles_C2H6O);
+x_c = [X_C2H6O X_H2O]
 
 
-vapor_pressure_mixture_ac
+
+
+
+
+
+
+
+
+
+
+
 
 
