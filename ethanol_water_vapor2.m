@@ -20,7 +20,8 @@ moles_C2H6O = (density_C2H6O * vol_mixture * vol_conc) / mol_mass_C2H6O;
 % mole fraction
 X_H2O = moles_H2O / (moles_H2O + moles_C2H6O);
 X_C2H6O = moles_C2H6O / (moles_H2O + moles_C2H6O);
-x_c = [1 0];
+x_c = [X_C2H6O X_H2O];
+
 %% vapor pressure
 vapor_pressure_H2O = 0.61121 * exp((18.678 - T_C/234.5) * (T_C / (T_C + 257.14)));  % water: Buck equation (kPa)
 vapor_pressure_C2H6O = power(10, 8.20417 - 1642.89/(230.3 + T_C)) / 7.501;          % ethanol: Antoine equation (kPa)
@@ -71,6 +72,7 @@ end
 %% residual part
 phi_mn = exp(-(a_mn/T_K));
 
+
 X_m = zeros(1, 4);
 X_m_den = 0;
 for j = 1:N
@@ -117,18 +119,17 @@ end
 %%
 theta_mi = zeros(2, 4);
 X_mi = zeros(2, 4);
-sum_v_mi = zeros(1, 4);
+sum_v_mi = zeros(1, 2);
 
-% X_mi
 for m = 1:M
     for i = 1:N
-        sum_v_mi(m) = sum_v_mi(m) + v(i, m);
+        sum_v_mi(i) = sum_v_mi(i) + v(i, m);
     end
 end
 
 for m = 1:M
     for i = 1:N
-        X_mi(i, m) = v(i, m)/sum_v_mi(m);
+        X_mi(i, m) = v(i, m)/sum_v_mi(i);
     end
 end
 
@@ -149,7 +150,6 @@ end
 % seconde element
 sum_theta_mi_phi_mk = zeros(2, 4);
 
-
 % third element denominator
 sum_theta_ni_phi_nm = zeros(2, 4);
 for m = 1:M
@@ -167,7 +167,7 @@ for k = 1:4
    for i = 1:2
       for m = 1:4
           sum_theta_mi_phi_mk(i, k) = sum_theta_mi_phi_mk(i, k) + theta_mi(i, m) * phi_mn(m, k);
-          sum_theta_mi_phi_km(i, k) = sum_theta_mi_phi_km(i, k) + theta_mi(i, m) * phi_mn(k, m)/sum_theta_ni_phi_nm(i, k);
+          sum_theta_mi_phi_km(i, k) = sum_theta_mi_phi_km(i, k) + theta_mi(i, m) * phi_mn(k, m)/sum_theta_ni_phi_nm(i, m);%%
       end
       ln_Gamma_ki(i, k) = Q(k) * (1 - log(sum_theta_mi_phi_mk(i, k)) - sum_theta_mi_phi_km(i, k));
    end
@@ -190,13 +190,12 @@ gamma_C2H6O = gamma_i(1);
 gamma_H2O = gamma_i(2);
 
 %% mole fractions of vapor at the ethanol/water droplet surface 
-% X_s_H2O = gamma_H2O * X_H2O * (vapor_pressure_H2O / P_atm_kpa);
-% X_s_C2H6O = gamma_C2H6O * X_C2H6O * (vapor_pressure_C2H6O / P_atm_kpa);
-
 X_s_H2O = gamma_H2O * X_H2O ;
 X_s_C2H6O = gamma_C2H6O * X_C2H6O;
+
 %% vapor pressure with activity coefficient
 vapor_pressure_mixture_ac = vapor_pressure_C2H6O * X_s_C2H6O + vapor_pressure_H2O * X_s_H2O;
+
 
 vapor_pressure_mixture_ac
 

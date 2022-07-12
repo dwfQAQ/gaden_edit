@@ -116,18 +116,24 @@ end
 %%
 theta_mi = zeros(2, 4);
 X_mi = zeros(2, 4);
-sum_v_mi = zeros(1, 4);
+sum_v_mi = zeros(1, 2);
 
 % X_mi
+% for m = 1:M
+%     for i = 1:N
+%         sum_v_mi(m) = sum_v_mi(m) + v(i, m);
+%     end
+% end
+
 for m = 1:M
     for i = 1:N
-        sum_v_mi(m) = sum_v_mi(m) + v(i, m);
+        sum_v_mi(i) = sum_v_mi(i) + v(i, m);
     end
 end
 
 for m = 1:M
     for i = 1:N
-        X_mi(i, m) = v(i, m)/sum_v_mi(m);
+        X_mi(i, m) = v(i, m)/sum_v_mi(i);
     end
 end
 
@@ -166,7 +172,7 @@ for k = 1:4
    for i = 1:2
       for m = 1:4
           sum_theta_mi_phi_mk(i, k) = sum_theta_mi_phi_mk(i, k) + theta_mi(i, m) * phi_mn(m, k);
-          sum_theta_mi_phi_km(i, k) = sum_theta_mi_phi_km(i, k) + theta_mi(i, m) * phi_mn(k, m)/sum_theta_ni_phi_nm(i, k);
+          sum_theta_mi_phi_km(i, k) = sum_theta_mi_phi_km(i, k) + theta_mi(i, m) * phi_mn(k, m)/sum_theta_ni_phi_nm(i, m);%%
       end
       ln_Gamma_ki(i, k) = Q(k) * (1 - log(sum_theta_mi_phi_mk(i, k)) - sum_theta_mi_phi_km(i, k));
    end
@@ -196,6 +202,6 @@ gamma_H2O = gamma_i(2);
 X_s_H2O = gamma_H2O * x_c(2) ;
 X_s_C2H6O = gamma_C2H6O * x_c(1);
 %% vapor pressure with activity coefficient
-vapor_pressure_mixture_ac = vapor_pressure_C2H6O * X_s_C2H6O/(X_s_C2H6O + X_s_H2O) + vapor_pressure_H2O * X_s_H2O/(X_s_C2H6O + X_s_H2O)  ;
-% vapor_pressure_mixture_ac = vapor_pressure_C2H6O * X_s_C2H6O + vapor_pressure_H2O * X_s_H2O;
+% vapor_pressure_mixture_ac = vapor_pressure_C2H6O * X_s_C2H6O/(X_s_C2H6O + X_s_H2O) + vapor_pressure_H2O * X_s_H2O/(X_s_C2H6O + X_s_H2O)  ;
+vapor_pressure_mixture_ac = vapor_pressure_C2H6O * X_s_C2H6O + vapor_pressure_H2O * X_s_H2O;
 end

@@ -13,5 +13,5 @@ figure(1);
 plot(vol_conc, vapor_pressure_ac);
 hold on;
 plot(vol_conc, vapor_pressure_id);
-legend("ac", "id");
+legend("UNIFAC", "ideal");
 
